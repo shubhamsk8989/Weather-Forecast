@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="cities.js"></script>
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        #state_li {
+            margin: 0 5px;
+        }
+
+        #state {
+            min-width: 80px;
+        }
+
+        .btn-outline-success {
+            --bs-btn-color: #0d6efd;
+            --bs-btn-border-color: #0d6efd;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #0d6efd;
+            --bs-btn-hover-border-color: #0d6efd;
+            --bs-btn-focus-shadow-rgb: 25, 135, 84;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #0d6efd;
+            --bs-btn-active-border-color: #0d6efd;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #0d6efd;
+            --bs-btn-disabled-bg: transparent;
+            --bs-btn-disabled-border-color: #0d6efd;
+            --bs-gradient: none;
+        }
+
+        .nav-link {
+            display: block;
+            padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+            font-size: var(--bs-nav-link-font-size);
+            font-weight: var(--bs-nav-link-font-weight);
+            color: var(--bs-nav-link-color);
+            text-decoration: none;
+            background: 0 0;
+            border: 0;
+            color: black;
+            /* transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out; */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Weather App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li type="none" id="state_li">
+                        <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt" class="form-control" required></select>
+                    </li>
+                    <li>
+                        <select onchange="getWeather(this.value);" id="state" class="form-control" required></select>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input id="city" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" id="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="my-4 text-center">Weather for <span id="cityName"></span></h1>
+        <main>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-bg-primary border-primary">
+                            <h4 class="my-0 fw-normal">Temperature</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title"><span id="temp2"></span><small
+                                    class="text-body-secondary fw-light"></span><span> &#8451;</span></small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Temperature is <span id="temp"></span></li>
+                                <li>Min Temperature is <span id="min_temp"></span></li>
+                                <li>Max Temerature is <span id="max_temp"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-bg-primary border-primary">
+                            <h4 class="my-0 fw-normal">Humidity Info</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title"><span id="humidity2"></span><small
+                                    class="text-body-secondary fw-light"></span> %</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Humidity is <span id="humidity"></span></li>
+                                <li>Cloud PCT is <span id="cloud_pct"></span></li>
+                                <li>Feels like <span id="feels_like"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-bg-primary border-primary">
+                            <h4 class="my-0 fw-normal">Wind Info</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title"><span id="wind_speed2"></span><small
+                                    class="text-body-secondary fw-light"></span> km/hr</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Wind Speed is <span id="wind_speed"></span></li>
+                                <li>Sunrise <span id="sunrise"></span></li>
+                                <li>Sunset <span id="sunset"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start" >
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2023 Copyright:
+          <a class="text-dark" href="mailto:shubhamsk8989338@gmail.com">shubhamsk8989338@gmail.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+
+
+      
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+
+    <!-- Javascript file for City Fetching -->
+    <script language="javascript">print_state("sts");</script>
+
+</body>
+
+</html>
